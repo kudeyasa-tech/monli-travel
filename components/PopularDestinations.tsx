@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 const destinations = [
   {
@@ -10,7 +9,7 @@ const destinations = [
       "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
     imageAlt:
       "Petronas Twin Towers rising above the Kuala Lumpur skyline at dusk",
-    href: "/destinations/kuala-lumpur",
+    href: "#contact",
   },
   {
     name: "Cameron Highlands",
@@ -19,7 +18,7 @@ const destinations = [
     image: "/cameron-highlands.jpg",
     imageAlt:
       "Rolling green tea plantation hills in Cameron Highlands, Malaysia",
-    href: "/destinations/cameron-highlands",
+    href: "#contact",
   },
 ];
 
@@ -69,13 +68,13 @@ export default function PopularDestinations() {
                 </p>
 
                 <div className="mt-6 flex justify-end">
-                  <Link
+                  <a
                     href={destination.href}
-                    aria-label={`View details for ${destination.name}`}
+                    aria-label={`Enquire about ${destination.name}`}
                     className="inline-flex items-center justify-center rounded-card border border-navy px-5 py-2.5 text-sm font-semibold text-navy transition-colors duration-200 hover:bg-navy hover:text-white focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 focus-visible:outline-none"
                   >
-                    View Details
-                  </Link>
+                    Enquire Now
+                  </a>
                 </div>
               </div>
             </article>
