@@ -1,14 +1,17 @@
-const whatsappMessage = encodeURIComponent(
-  "Hi Monlitravel, I would like to plan a booking.",
-);
+"use client";
+
+import { useLanguage } from "./LanguageProvider";
 
 export default function WhatsAppButton() {
+  const { t } = useLanguage();
+  const whatsappMessage = encodeURIComponent(t("whatsapp.message"));
+
   return (
     <a
       href={`https://wa.me/60122885688?text=${whatsappMessage}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Monlitravel on WhatsApp to plan a booking"
+      aria-label={t("whatsapp.ariaLabel")}
       className="fixed right-5 bottom-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform duration-200 hover:scale-105 hover:bg-[#1DA851] focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none md:right-8 md:bottom-8"
     >
       <svg

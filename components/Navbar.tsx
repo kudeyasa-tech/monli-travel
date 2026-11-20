@@ -2,16 +2,20 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useLanguage } from "./LanguageProvider";
+import type { TranslationKey } from "@/lib/i18n";
 
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#destinations", label: "Destinations" },
-  { href: "#tours", label: "Tours" },
-  { href: "#about", label: "About" },
-  { href: "#faq", label: "FAQ" },
+const navLinks: { href: string; labelKey: TranslationKey }[] = [
+  { href: "#home", labelKey: "nav.home" },
+  { href: "#destinations", labelKey: "nav.destinations" },
+  { href: "#tours", labelKey: "nav.tours" },
+  { href: "#about", labelKey: "nav.about" },
+  { href: "#faq", labelKey: "nav.faq" },
 ];
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -63,7 +67,7 @@ export default function Navbar() {
           />
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-6 lg:flex lg:gap-8">
           <ul className="flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -71,57 +75,63 @@ export default function Navbar() {
                   href={link.href}
                   className="text-sm font-medium text-body transition-colors duration-200 hover:text-navy"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </a>
               </li>
             ))}
           </ul>
 
           <a href="#contact" className="btn btn-gold px-5 py-2.5 text-sm">
-            Book Now
+            {t("nav.bookNow")}
           </a>
+
+          <LanguageSwitcher />
         </div>
 
-        <button
-          type="button"
-          onClick={() => setIsOpen((open) => !open)}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-card text-navy transition-colors duration-200 hover:bg-surface focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:outline-none md:hidden"
-        >
-          {isOpen ? (
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="h-6 w-6"
-            >
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          ) : (
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="h-6 w-6"
-            >
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          )}
-        </button>
+        <div className="flex items-center gap-1 lg:hidden">
+          <LanguageSwitcher />
+
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-label={isOpen ? t("nav.closeMenu") : t("nav.openMenu")}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-card text-navy transition-colors duration-200 hover:bg-surface focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
+            {isOpen ? (
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="h-6 w-6"
+              >
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            ) : (
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="h-6 w-6"
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            )}
+          </button>
+        </div>
       </nav>
 
       {isOpen && (
         <div
           id="mobile-menu"
-          className="border-t border-navy/10 bg-white md:hidden"
+          className="border-t border-navy/10 bg-white lg:hidden"
         >
           <ul className="container-page flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
@@ -131,7 +141,7 @@ export default function Navbar() {
                   onClick={closeMenu}
                   className="block rounded-card px-3 py-2.5 text-base font-medium text-body transition-colors duration-200 hover:bg-surface hover:text-navy"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </a>
               </li>
             ))}
@@ -143,7 +153,7 @@ export default function Navbar() {
               onClick={closeMenu}
               className="btn btn-gold w-full"
             >
-              Book Now
+              {t("nav.bookNow")}
             </a>
           </div>
         </div>

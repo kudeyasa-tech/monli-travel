@@ -1,9 +1,17 @@
-import Image from "next/image";
+"use client";
 
-const socialLinks = [
+import Image from "next/image";
+import { useLanguage } from "./LanguageProvider";
+import type { TranslationKey } from "@/lib/i18n";
+
+const socialLinks: {
+  href: string;
+  labelKey: TranslationKey;
+  icon: React.ReactNode;
+}[] = [
   {
     href: "https://api.whatsapp.com/send/?phone=60122885688&text=Hi+Monlitravel%2C+I+would+like+to+plan+a+booking.&type=phone_number&app_absent=0",
-    label: "Monlitravel on WhatsApp",
+    labelKey: "footer.social.whatsapp",
     icon: (
       <svg
         aria-hidden="true"
@@ -17,7 +25,7 @@ const socialLinks = [
   },
   {
     href: "https://www.facebook.com/p/Mon-Li-Travel-Tour-Sdn-Bhd-100054277611095/",
-    label: "Monlitravel on Facebook",
+    labelKey: "footer.social.facebook",
     icon: (
       <svg
         aria-hidden="true"
@@ -31,7 +39,7 @@ const socialLinks = [
   },
   {
     href: "https://www.instagram.com/monlitravel?evlk=MTN6dHZiMXBndnFqeA%3D%3D",
-    label: "Monlitravel on Instagram",
+    labelKey: "footer.social.instagram",
     icon: (
       <svg
         aria-hidden="true"
@@ -50,6 +58,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-navy text-white">
       <div className="container-page grid gap-10 py-14 md:grid-cols-3 md:py-16">
@@ -68,16 +78,15 @@ export default function Footer() {
             />
           </a>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-            Monlitravel designs curated tours and travel packages worldwide, so
-            every journey feels effortless.
+            {t("footer.description")}
           </p>
 
           <ul className="mt-6 flex items-center gap-3">
             {socialLinks.map((social) => (
-              <li key={social.label}>
+              <li key={social.labelKey}>
                 <a
                   href={social.href}
-                  aria-label={social.label}
+                  aria-label={t(social.labelKey)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy focus-visible:outline-none"
@@ -91,7 +100,7 @@ export default function Footer() {
 
         <div>
           <h2 className="font-sans text-sm font-semibold tracking-[0.18em] text-white/60 uppercase">
-            Contact
+            {t("footer.contact")}
           </h2>
           <ul className="mt-4 space-y-3 text-sm text-white/75">
             <li>
@@ -125,9 +134,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-page py-6">
-          <p className="text-xs text-white/60">
-            © 2026 Monlitravel. All rights reserved.
-          </p>
+          <p className="text-xs text-white/60">{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

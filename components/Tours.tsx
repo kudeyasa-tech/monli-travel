@@ -1,46 +1,15 @@
+"use client";
+
+import { useLanguage } from "./LanguageProvider";
+import type { TranslationKey } from "@/lib/i18n";
+
 const vehicles = [
-  {
-    name: "Alza",
-    seats: "6 Seater",
-    description:
-      "A practical, fuel-efficient MPV that's ideal for small families, airport transfers and day trips.",
-    icon: "car",
-  },
-  {
-    name: "Alphard",
-    seats: "7 Seater",
-    description:
-      "Premium comfort for VIP transfers, corporate travel and special occasions.",
-    icon: "car",
-  },
-  {
-    name: "Van",
-    seats: "15 Seater",
-    description:
-      "A comfortable choice for medium groups, guided day tours and multi-day trips.",
-    icon: "van",
-  },
-  {
-    name: "Van",
-    seats: "18 Seater",
-    description:
-      "Extra room for larger families and groups travelling with plenty of luggage.",
-    icon: "van",
-  },
-  {
-    name: "Bus",
-    seats: "31 Seater",
-    description:
-      "A spacious coach for corporate outings, school trips and group events.",
-    icon: "bus",
-  },
-  {
-    name: "Bus",
-    seats: "44 Seater",
-    description:
-      "Our largest coach, built for big groups and long-distance journeys.",
-    icon: "bus",
-  },
+  { id: "alza", icon: "car" },
+  { id: "alphard", icon: "car" },
+  { id: "van15", icon: "van" },
+  { id: "van18", icon: "van" },
+  { id: "bus31", icon: "bus" },
+  { id: "bus44", icon: "bus" },
 ] as const;
 
 const iconClass = "h-6 w-6";
@@ -110,6 +79,8 @@ function VehicleIcon({ type }: { type: (typeof vehicles)[number]["icon"] }) {
 }
 
 export default function Tours() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="tours"
@@ -121,17 +92,16 @@ export default function Tours() {
           id="fleet-heading"
           className="text-[32px] font-bold text-navy md:text-[40px]"
         >
-          Our Fleet
+          {t("tours.heading")}
         </h2>
         <p className="mt-4 max-w-[800px] leading-relaxed text-muted">
-          Choose from our range of well-maintained vehicles, from a 6-seater MPV
-          for family trips to 44-seater coaches for large groups.
+          {t("tours.description")}
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {vehicles.map((vehicle) => (
             <article
-              key={`${vehicle.name}-${vehicle.seats}`}
+              key={vehicle.id}
               className="rounded-card border border-navy/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="flex items-start justify-between gap-4">
@@ -139,15 +109,15 @@ export default function Tours() {
                   <VehicleIcon type={vehicle.icon} />
                 </span>
                 <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold whitespace-nowrap text-navy">
-                  {vehicle.seats}
+                  {t(`tours.vehicles.${vehicle.id}.seats` as TranslationKey)}
                 </span>
               </div>
 
               <h3 className="mt-5 text-xl font-bold text-navy">
-                {vehicle.name}
+                {t(`tours.vehicles.${vehicle.id}.name` as TranslationKey)}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                {vehicle.description}
+                {t(`tours.vehicles.${vehicle.id}.description` as TranslationKey)}
               </p>
             </article>
           ))}
