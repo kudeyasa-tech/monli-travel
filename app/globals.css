@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0f2c4c;
+  --color-gold: #c9a227;
+  --color-gold-dark: #b08e1f;
+  --color-surface: #f7f8fa;
+  --color-body: #1f2937;
+  --color-muted: #6b7280;
+
+  --radius-card: 12px;
+  --container-content: 1200px;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, "Times New Roman",
+    serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  ::selection {
+    @apply bg-gold text-navy;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-6;
+  }
+
+  .section-pad {
+    @apply py-14 md:py-24;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-card px-6 py-3 text-base font-semibold transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none;
+  }
+
+  .btn-gold {
+    @apply bg-gold text-navy hover:bg-gold-dark focus-visible:ring-navy;
+  }
+
+  .btn-outline-light {
+    @apply border border-white bg-transparent text-white hover:bg-white/10 focus-visible:ring-gold;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Adjusts for the sticky navbar height */
+}
